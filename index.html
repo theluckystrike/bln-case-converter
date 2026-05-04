@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Text Case Converter — UPPERCASE, camelCase, snake_case &amp; More | BeLikeNative</title>
+<meta name="description" content="Convert text between 12 case formats instantly: UPPERCASE, lowercase, Title Case, camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE, dot.case, path/case, Sentence case, aLtErNaTiNg CaSe. Free, fast, no signup.">
+<meta name="keywords" content="text case converter, uppercase converter, camelcase converter, title case converter, snake case converter, kebab case converter">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://theluckystrike.github.io/bln-case-converter/">
+<meta property="og:title" content="Free Text Case Converter — 12 Formats | BeLikeNative">
+<meta property="og:description" content="Convert text between UPPERCASE, camelCase, snake_case, Title Case and 8 more formats. Instant, free, no signup required.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://theluckystrike.github.io/bln-case-converter/">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Text Case Converter",
+  "url": "https://theluckystrike.github.io/bln-case-converter/",
+  "description": "Convert text between 12 case formats: UPPERCASE, lowercase, Title Case, camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE, dot.case, path/case, Sentence case, aLtErNaTiNg CaSe.",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "BeLikeNative", "url": "https://belikenative.com" }
+}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#2563eb;--accent:#10b981;--bg:#f8fafc;--surface:#ffffff;--text:#1e293b;--text-muted:#64748b;--border:#e2e8f0;--radius:8px;--shadow:0 1px 3px rgba(0,0,0,0.1)}
+@media(prefers-color-scheme:dark){:root{--bg:#0f172a;--surface:#1e293b;--text:#f1f5f9;--text-muted:#94a3b8;--border:#334155;--shadow:0 1px 3px rgba(0,0,0,0.4)}}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+.container{max-width:1200px;margin:0 auto;padding:1rem}
+header{text-align:center;padding:2rem 0 1rem}
+header h1{font-size:2rem;color:var(--primary);margin-bottom:0.25rem}
+header .subtitle{color:var(--text-muted);font-size:0.95rem}
+.input-section{margin:1.5rem 0}
+.input-section textarea{width:100%;min-height:120px;padding:1rem;border:2px solid var(--border);border-radius:var(--radius);font-size:1rem;font-family:inherit;background:var(--surface);color:var(--text);resize:vertical}
+.input-section textarea:focus{outline:none;border-color:var(--primary)}
+.controls{display:flex;flex-wrap:wrap;gap:0.5rem;margin:0.75rem 0;align-items:center}
+.controls button{padding:0.5rem 1rem;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--text);cursor:pointer;font-size:0.875rem;transition:all 0.15s}
+.controls button:hover{border-color:var(--primary);color:var(--primary)}
+.controls button.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.stats{font-size:0.85rem;color:var(--text-muted);margin-left:auto}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.5rem 0}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.grid{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;box-shadow:var(--shadow);position:relative;cursor:pointer;transition:border-color 0.15s}
+.card:hover{border-color:var(--primary)}
+.card h3{font-size:0.8rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:0.5rem}
+.card .output{font-size:0.95rem;line-height:1.5;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;word-break:break-all;min-height:2.85rem}
+.card .copy-btn{position:absolute;top:0.75rem;right:0.75rem;padding:0.25rem 0.5rem;font-size:0.75rem;border:1px solid var(--border);border-radius:4px;background:var(--surface);color:var(--text-muted);cursor:pointer}
+.card .copy-btn.copied{background:var(--accent);color:#fff;border-color:var(--accent)}
+.expanded-view{display:none;background:var(--surface);border:2px solid var(--primary);border-radius:var(--radius);padding:1.5rem;margin:1rem 0}
+.expanded-view.visible{display:block}
+.expanded-view h3{margin-bottom:0.5rem;color:var(--primary)}
+.expanded-view pre{white-space:pre-wrap;word-break:break-all;font-size:0.95rem;background:var(--bg);padding:1rem;border-radius:var(--radius);max-height:300px;overflow-y:auto}
+.cta{background:linear-gradient(135deg,#2563eb11,#10b98111);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin:2rem 0;text-align:center}
+.cta p{margin-bottom:0.75rem;font-size:0.95rem}
+.cta a{color:var(--primary);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{text-align:center;padding:2rem 0;color:var(--text-muted);font-size:0.85rem;border-top:1px solid var(--border);margin-top:2rem}
+footer a{color:var(--primary);text-decoration:none}
+footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+<h1>Text Case Converter</h1>
+<p class="subtitle">by <a href="https://belikenative.com" style="color:var(--primary);text-decoration:none;font-weight:600">BeLikeNative</a></p>
+</header>
+
+<div class="input-section">
+<textarea id="inputText" placeholder="Type or paste your text here..." aria-label="Input text for conversion"></textarea>
+<div class="controls">
+<button id="btnBatch" title="Convert each line independently">Batch Mode</button>
+<button id="btnTrimSpaces" title="Remove extra whitespace">Remove Extra Spaces</button>
+<button id="btnReverse" title="Reverse the text">Reverse Text</button>
+<span class="stats" id="stats">0 characters | 0 words</span>
+</div>
+</div>
+
+<div class="expanded-view" id="expandedView">
+<h3 id="expandedTitle"></h3>
+<pre id="expandedOutput"></pre>
+<button class="copy-btn" id="expandedCopy" style="position:static;margin-top:0.75rem;padding:0.5rem 1rem">Copy Full Text</button>
+</div>
+
+<div class="grid" id="outputGrid"></div>
+
+<div class="cta">
+<p>Need more than case conversion? <strong>BeLikeNative</strong> checks your grammar, tone, and style as you type — everywhere on the web.</p>
+<a href="https://belikenative.com">Try Free &rarr;</a>
+</div>
+
+<footer>
+<p>&copy; 2026 <a href="https://belikenative.com">BeLikeNative</a> &mdash;
+<a href="https://theluckystrike.github.io/bln-word-counter/">Word Counter</a> &bull;
+<a href="https://theluckystrike.github.io/bln-tone-analyzer/">Tone Analyzer</a></p>
+</footer>
+</div>
+
+<script>
+(function() {
+"use strict";
+
+/* ===== CONSTANTS (immutable) ===== */
+var MAX_INPUT_LENGTH = 100000;
+var MAX_WORDS = 10000;
+var SMALL_WORDS = Object.freeze(["a","an","the","and","but","or","for","nor","at","by","to","in","of","on","up","as","is","it","so"]);
+var CASE_NAMES = Object.freeze([
+  "UPPERCASE","lowercase","Title Case","Sentence case",
+  "camelCase","PascalCase","snake_case","kebab-case",
+  "CONSTANT_CASE","dot.case","path/case","aLtErNaTiNg CaSe"
+]);
+
+/* ===== UTILITY: bounded string sanitizer ===== */
+function sanitizeInput(raw) {
+  console.assert(typeof raw === "string", "sanitizeInput: raw must be string");
+  console.assert(raw.length <= MAX_INPUT_LENGTH + 1, "sanitizeInput: length guard");
+  if (typeof raw !== "string") { return ""; }
+  var bounded = raw.slice(0, MAX_INPUT_LENGTH);
+  return bounded;
+}
+
+/* ===== UTILITY: split text into words (bounded) ===== */
+function splitWords(text) {
+  console.assert(typeof text === "string", "splitWords: text must be string");
+  console.assert(text.length <= MAX_INPUT_LENGTH, "splitWords: bounded input");
+  if (typeof text !== "string" || text.length === 0) { return []; }
+  var pattern = /[A-Z]{2,}(?=[A-Z][a-z])|[A-Z]?[a-z]+|[A-Z]+|[0-9]+/g;
+  var matches = text.match(pattern);
+  if (!matches) { return []; }
+  var result = matches.slice(0, MAX_WORDS);
+  return result;
+}
+
+/* ===== CONVERTER: UPPERCASE ===== */
+function toUpperCase(text) {
+  console.assert(typeof text === "string", "toUpperCase: input must be string");
+  console.assert(text.length <= MAX_INPUT_LENGTH, "toUpperCase: bounded");
+  var result = text.toUpperCase();
+  console.assert(typeof result === "string", "toUpperCase: output must be string");
+  return result;
+}
+
+/* ===== CONVERTER: lowercase ===== */
+function toLowerCase(text) {
+  console.assert(typeof text === "string", "toLowerCase: input must be string");
+  console.assert(text.length <= MAX_INPUT_LENGTH, "toLowerCase: bounded");
+  var result = text.toLowerCase();
+  console.assert(typeof result === "string", "toLowerCase: output must be string");
+  return result;
+}
+
+/* ===== CONVERTER: Title Case (AP style) ===== */
+function toTitleCase(text) {
+  console.assert(typeof text === "string", "toTitleCase: input must be string");
+  console.assert(text.length <= MAX_INPUT_LENGTH, "toTitleCase: bounded");
+  var words = text.split(/\s+/).slice(0, MAX_WORDS);
+  var len = words.length;
+  var result = [];
+  for (var i = 0; i < len && i < MAX_WORDS; i++) {
+    var w = words[i].toLowerCase();
+    if (i === 0 || i === len - 1 || SMALL_WORDS.indexOf(w) === -1) {
+      result.push(w.charAt(0).toUpperCase() + w.slice(1));
+    } else {
+      result.push(w);
+    }
+  }
+  var output = result.join(" ");
+  console.assert(typeof output === "string", "toTitleCase: output must be string");
+  return output;
+}
+
+/* ===== CONVERTER: Sentence case ===== */
+function toSentenceCase(text) {
+  console.assert(typeof text === "string", "toSentenceCase: input must be string");
+  console.assert(text.length <= MAX_INPUT_LENGTH, "toSentenceCase: bounded");
+  var lower = text.toLowerCase();
+  var sentences = lower.split(/([.!?]\s+)/);
+  var result = [];
+  var limit = Math.min(sentences.length, MAX_WORDS);
+  for (var i = 0; i < limit; i++) {
+    var s = sentences[i];
+    if (s.length > 0 && i % 2 === 0) {
+      result.push(s.charAt(0).toUpperCase() + s.slice(1));
+    } else {
+      result.push(s);
+    }
+  }
+  var output = result.join("");
+  console.assert(typeof output === "string", "toSentenceCase: output must be string");
+  return output;
+}
+
+/* ===== CONVERTER: camelCase ===== */
+function toCamelCase(text) {
+  console.assert(typeof text === "string", "toCamelCase: input must be string");
+  console.assert(text.length <= MAX_INPUT_LENGTH, "toCamelCase: bounded");
+  var words = splitWords(text);
+  if (words.length === 0) { return ""; }
+  var result = [words[0].toLowerCase()];
+  var limit = Math.min(words.length, MAX_WORDS);
+  for (var i = 1; i < limit; i++) {
+    var w = words[i].toLowerCase();
+    result.push(w.charAt(0).toUpperCase() + w.slice(1));
+  }
+  var output = result.join("");
+  console.assert(typeof output === "string", "toCamelCase: output must be string");
+  return output;
+}
+
+/* ===== CONVERTER: PascalCase ===== */
+function toPascalCase(text) {
+  console.assert(typeof text === "string", "toPascalCase: input must be string");
+  console.assert(text.length <= MAX_INPUT_LENGTH, "toPascalCase: bounded");
+  var words = splitWords(text);
+  var result = [];
+  var limit = Math.min(words.length, MAX_WORDS);
+  for (var i = 0; i < limit; i++) {
+    var w = words[i].toLowerCase();
+    result.push(w.charAt(0).toUpperCase() + w.slice(1));
+  }
+  var output = result.join("");
+  console.assert(typeof output === "string", "toPascalCase: output must be string");
+  return output;
+}
+
+/* ===== CONVERTER: snake_case ===== */
+function toSnakeCase(text) {
+  console.assert(typeof text === "string", "toSnakeCase: input must be string");
+  console.assert(text.length <= MAX_INPUT_LENGTH, "toSnakeCase: bounded");
+  var words = splitWords(text);
+  var limit = Math.min(words.length, MAX_WORDS);
+  var bounded = words.slice(0, limit);
+  var output = bounded.map(function(w) { return w.toLowerCase(); }).join("_");
+  console.assert(typeof output === "string", "toSnakeCase: output must be string");
+  return output;
+}
+
+/* ===== CONVERTER: kebab-case ===== */
+function toKebabCase(text) {
+  console.assert(typeof text === "string", "toKebabCase: input must be string");
+  console.assert(text.length <= MAX_INPUT_LENGTH, "toKebabCase: bounded");
+  var words = splitWords(text);
+  var limit = Math.min(words.length, MAX_WORDS);
+  var bounded = words.slice(0, limit);
+  var output = bounded.map(function(w) { return w.toLowerCase(); }).join("-");
+  console.assert(typeof output === "string", "toKebabCase: output must be string");
+  return output;
+}
+
+/* ===== CONVERTER: CONSTANT_CASE ===== */
+function toConstantCase(text) {
+  console.assert(typeof text === "string", "toConstantCase: input must be string");
+  console.assert(text.length <= MAX_INPUT_LENGTH, "toConstantCase: bounded");
+  var words = splitWords(text);
+  var limit = Math.min(words.length, MAX_WORDS);
+  var bounded = words.slice(0, limit);
+  var output = bounded.map(function(w) { return w.toUpperCase(); }).join("_");
+  console.assert(typeof output === "string", "toConstantCase: output must be string");
+  return output;
+}
+
+/* ===== CONVERTER: dot.case ===== */
+function toDotCase(text) {
+  console.assert(typeof text === "string", "toDotCase: input must be string");
+  console.assert(text.length <= MAX_INPUT_LENGTH, "toDotCase: bounded");
+  var words = splitWords(text);
+  var limit = Math.min(words.length, MAX_WORDS);
+  var bounded = words.slice(0, limit);
+  var output = bounded.map(function(w) { return w.toLowerCase(); }).join(".");
+  console.assert(typeof output === "string", "toDotCase: output must be string");
+  return output;
+}
+
+/* ===== CONVERTER: path/case ===== */
+function toPathCase(text) {
+  console.assert(typeof text === "string", "toPathCase: input must be string");
+  console.assert(text.length <= MAX_INPUT_LENGTH, "toPathCase: bounded");
+  var words = splitWords(text);
+  var limit = Math.min(words.length, MAX_WORDS);
+  var bounded = words.slice(0, limit);
+  var output = bounded.map(function(w) { return w.toLowerCase(); }).join("/");
+  console.assert(typeof output === "string", "toPathCase: output must be string");
+  return output;
+}
+
+/* ===== CONVERTER: aLtErNaTiNg CaSe ===== */
+function toAlternatingCase(text) {
+  console.assert(typeof text === "string", "toAlternatingCase: input must be string");
+  console.assert(text.length <= MAX_INPUT_LENGTH, "toAlternatingCase: bounded");
+  var result = [];
+  var charIdx = 0;
+  var limit = Math.min(text.length, MAX_INPUT_LENGTH);
+  for (var i = 0; i < limit; i++) {
+    var ch = text[i];
+    if (/[a-zA-Z]/.test(ch)) {
+      result.push(charIdx % 2 === 0 ? ch.toLowerCase() : ch.toUpperCase());
+      charIdx++;
+    } else {
+      result.push(ch);
+    }
+  }
+  var output = result.join("");
+  console.assert(typeof output === "string", "toAlternatingCase: output must be string");
+  return output;
+}
+
+/* ===== CONVERTER REGISTRY (frozen) ===== */
+var CONVERTERS = Object.freeze([
+  toUpperCase, toLowerCase, toTitleCase, toSentenceCase,
+  toCamelCase, toPascalCase, toSnakeCase, toKebabCase,
+  toConstantCase, toDotCase, toPathCase, toAlternatingCase
+]);
+
+/* ===== BATCH PROCESSOR ===== */
+function processBatch(text, converterFn) {
+  console.assert(typeof text === "string", "processBatch: text must be string");
+  console.assert(typeof converterFn === "function", "processBatch: converterFn must be function");
+  var lines = text.split("\n").slice(0, MAX_WORDS);
+  var results = [];
+  var limit = Math.min(lines.length, MAX_WORDS);
+  for (var i = 0; i < limit; i++) {
+    results.push(converterFn(lines[i]));
+  }
+  return results.join("\n");
+}
+
+/* ===== STATS CALCULATOR ===== */
+function calcStats(text) {
+  console.assert(typeof text === "string", "calcStats: text must be string");
+  console.assert(text.length <= MAX_INPUT_LENGTH, "calcStats: bounded");
+  var chars = text.length;
+  var words = text.trim().length === 0 ? 0 : text.trim().split(/\s+/).length;
+  return { chars: chars, words: Math.min(words, MAX_WORDS) };
+}
+
+/* ===== EXTRA SPACES REMOVAL ===== */
+function removeExtraSpaces(text) {
+  console.assert(typeof text === "string", "removeExtraSpaces: input must be string");
+  console.assert(text.length <= MAX_INPUT_LENGTH, "removeExtraSpaces: bounded");
+  var output = text.replace(/[ \t]+/g, " ").replace(/^ /gm, "").replace(/ $/gm, "");
+  console.assert(typeof output === "string", "removeExtraSpaces: output must be string");
+  return output;
+}
+
+/* ===== REVERSE TEXT ===== */
+function reverseText(text) {
+  console.assert(typeof text === "string", "reverseText: input must be string");
+  console.assert(text.length <= MAX_INPUT_LENGTH, "reverseText: bounded");
+  var arr = Array.from(text);
+  var output = arr.reverse().join("");
+  console.assert(typeof output === "string", "reverseText: output must be string");
+  return output;
+}
+
+/* ===== CLIPBOARD COPY ===== */
+function copyToClipboard(text, btnEl) {
+  console.assert(typeof text === "string", "copyToClipboard: text must be string");
+  console.assert(btnEl instanceof HTMLElement, "copyToClipboard: btnEl must be element");
+  navigator.clipboard.writeText(text).then(function() {
+    btnEl.textContent = "Copied!";
+    btnEl.classList.add("copied");
+    setTimeout(function() {
+      btnEl.textContent = "Copy";
+      btnEl.classList.remove("copied");
+    }, 1500);
+  });
+}
+
+/* ===== DOM REFERENCES ===== */
+var inputEl = document.getElementById("inputText");
+var gridEl = document.getElementById("outputGrid");
+var statsEl = document.getElementById("stats");
+var expandedView = document.getElementById("expandedView");
+var expandedTitle = document.getElementById("expandedTitle");
+var expandedOutput = document.getElementById("expandedOutput");
+var expandedCopy = document.getElementById("expandedCopy");
+var btnBatch = document.getElementById("btnBatch");
+var btnTrimSpaces = document.getElementById("btnTrimSpaces");
+var btnReverse = document.getElementById("btnReverse");
+
+/* ===== STATE (scoped to IIFE, minimal) ===== */
+var batchMode = false;
+var currentExpanded = -1;
+var lastOutputs = [];
+
+/* ===== RENDER GRID ===== */
+function renderGrid() {
+  console.assert(gridEl instanceof HTMLElement, "renderGrid: gridEl exists");
+  console.assert(CASE_NAMES.length === 12, "renderGrid: 12 case names");
+  gridEl.innerHTML = "";
+  for (var i = 0; i < 12; i++) {
+    var card = document.createElement("div");
+    card.className = "card";
+    card.dataset.index = String(i);
+    card.innerHTML = '<h3>' + CASE_NAMES[i] + '</h3>' +
+      '<div class="output" id="out-' + i + '"></div>' +
+      '<button class="copy-btn" data-copy="' + i + '">Copy</button>';
+    gridEl.appendChild(card);
+  }
+}
+
+/* ===== UPDATE OUTPUTS ===== */
+function updateOutputs() {
+  console.assert(inputEl instanceof HTMLTextAreaElement, "updateOutputs: inputEl is textarea");
+  console.assert(CONVERTERS.length === 12, "updateOutputs: 12 converters");
+  var raw = sanitizeInput(inputEl.value);
+  var stats = calcStats(raw);
+  statsEl.textContent = stats.chars + " characters | " + stats.words + " words";
+  lastOutputs = [];
+  for (var i = 0; i < 12; i++) {
+    var output;
+    if (batchMode) {
+      output = processBatch(raw, CONVERTERS[i]);
+    } else {
+      output = CONVERTERS[i](raw);
+    }
+    lastOutputs.push(output);
+    var outEl = document.getElementById("out-" + i);
+    if (outEl) { outEl.textContent = output; }
+  }
+  if (currentExpanded >= 0 && currentExpanded < 12) {
+    expandedOutput.textContent = lastOutputs[currentExpanded];
+  }
+}
+
+/* ===== EXPAND CARD ===== */
+function expandCard(index) {
+  console.assert(typeof index === "number", "expandCard: index must be number");
+  console.assert(index >= 0 && index < 12, "expandCard: index in bounds");
+  currentExpanded = index;
+  expandedTitle.textContent = CASE_NAMES[index];
+  expandedOutput.textContent = lastOutputs[index] || "";
+  expandedView.classList.add("visible");
+}
+
+/* ===== EVENT HANDLERS ===== */
+function handleInput() {
+  console.assert(inputEl instanceof HTMLTextAreaElement, "handleInput: inputEl exists");
+  console.assert(typeof inputEl.value === "string", "handleInput: value is string");
+  updateOutputs();
+}
+
+function handleGridClick(e) {
+  console.assert(e instanceof Event, "handleGridClick: e must be Event");
+  console.assert(gridEl.contains(e.target), "handleGridClick: target in grid");
+  var copyBtn = e.target.closest("[data-copy]");
+  if (copyBtn) {
+    var idx = parseInt(copyBtn.dataset.copy, 10);
+    if (idx >= 0 && idx < 12 && lastOutputs[idx]) {
+      copyToClipboard(lastOutputs[idx], copyBtn);
+    }
+    return;
+  }
+  var card = e.target.closest(".card");
+  if (card && card.dataset.index) {
+    expandCard(parseInt(card.dataset.index, 10));
+  }
+}
+
+function handleExpandedCopy() {
+  console.assert(expandedCopy instanceof HTMLElement, "handleExpandedCopy: btn exists");
+  console.assert(Array.isArray(lastOutputs), "handleExpandedCopy: outputs array");
+  if (currentExpanded >= 0 && lastOutputs[currentExpanded]) {
+    copyToClipboard(lastOutputs[currentExpanded], expandedCopy);
+  }
+}
+
+function handleBatchToggle() {
+  console.assert(typeof batchMode === "boolean", "handleBatchToggle: batchMode is boolean");
+  console.assert(btnBatch instanceof HTMLElement, "handleBatchToggle: btnBatch exists");
+  batchMode = !batchMode;
+  btnBatch.classList.toggle("active", batchMode);
+  updateOutputs();
+}
+
+function handleTrimSpaces() {
+  console.assert(inputEl instanceof HTMLTextAreaElement, "handleTrimSpaces: inputEl exists");
+  console.assert(typeof inputEl.value === "string", "handleTrimSpaces: value is string");
+  inputEl.value = removeExtraSpaces(inputEl.value);
+  updateOutputs();
+}
+
+function handleReverse() {
+  console.assert(inputEl instanceof HTMLTextAreaElement, "handleReverse: inputEl exists");
+  console.assert(typeof inputEl.value === "string", "handleReverse: value is string");
+  inputEl.value = reverseText(inputEl.value);
+  updateOutputs();
+}
+
+/* ===== INIT ===== */
+function init() {
+  console.assert(inputEl instanceof HTMLTextAreaElement, "init: inputEl exists");
+  console.assert(gridEl instanceof HTMLElement, "init: gridEl exists");
+  renderGrid();
+  inputEl.addEventListener("input", handleInput);
+  gridEl.addEventListener("click", handleGridClick);
+  expandedCopy.addEventListener("click", handleExpandedCopy);
+  btnBatch.addEventListener("click", handleBatchToggle);
+  btnTrimSpaces.addEventListener("click", handleTrimSpaces);
+  btnReverse.addEventListener("click", handleReverse);
+  updateOutputs();
+}
+
+init();
+
+})();
+</script>
+</body>
+</html>
